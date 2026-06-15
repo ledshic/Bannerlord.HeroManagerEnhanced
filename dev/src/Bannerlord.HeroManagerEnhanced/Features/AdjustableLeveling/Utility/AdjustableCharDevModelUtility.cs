@@ -15,12 +15,16 @@ namespace AdjustableLeveling.Utility
 {
 	public static class AdjustableCharDevModelUtility
 	{
-		private static readonly TextObject _skillFocusText;
-		private static readonly TextObject _attributeEffectText;
-		private static readonly TextObject _overLimitText;
+		private static TextObject _skillFocusText;
+		private static TextObject _attributeEffectText;
+		private static TextObject _overLimitText;
 
 		static AdjustableCharDevModelUtility()
 		{
+			_skillFocusText = new TextObject("Focus");
+			_attributeEffectText = new TextObject("Attribute");
+			_overLimitText = new TextObject("Over limit");
+
 			try
 			{
 				_skillFocusText = (TextObject)AccessTools.Field(typeof(DefaultCharacterDevelopmentModel), nameof(_skillFocusText)).GetValue(null);
@@ -29,7 +33,7 @@ namespace AdjustableLeveling.Utility
 			}
 			catch (Exception exc)
 			{
-				GeneralUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(AdjustableCharDevModelUtility)} static constructor): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+				GeneralUtility.Message($"WARNING: Adjustable Leveling using fallback learning-limit text ({nameof(AdjustableCharDevModelUtility)} static constructor): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 

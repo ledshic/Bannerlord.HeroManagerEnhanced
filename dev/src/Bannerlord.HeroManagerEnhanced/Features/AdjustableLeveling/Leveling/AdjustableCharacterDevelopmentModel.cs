@@ -14,7 +14,7 @@ namespace AdjustableLeveling.Leveling
 {
 	public class AdjustableCharacterDevelopmentModel : DefaultCharacterDevelopmentModel
 	{
-		private readonly int[] _skillsRequiredForLevel;
+		private new readonly int[] _skillsRequiredForLevel;
 
 		public override int MaxAttribute =>
 			MCMSettings.Settings.MaxAttribute;

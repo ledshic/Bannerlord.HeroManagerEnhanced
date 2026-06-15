@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 
@@ -17,7 +18,8 @@ internal static class PatchAddSkillXp
 	public static void Prefix(HeroDeveloper __instance, SkillObject skill, ref float rawXp)
 	{
 		var originalRawXp = rawXp;
-		var modifier = MCMSettings.Settings.GetSkillModifier(skill, __instance?.Hero);
+		Hero? hero = __instance?.Hero;
+		var modifier = MCMSettings.Settings.GetSkillModifier(skill, hero);
 		rawXp *= modifier;
 
 		GeneralUtility.TraceThrottled(

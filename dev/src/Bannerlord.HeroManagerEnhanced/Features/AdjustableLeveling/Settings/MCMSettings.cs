@@ -13,6 +13,7 @@ using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
 
 namespace AdjustableLeveling.Settings
@@ -29,40 +30,41 @@ namespace AdjustableLeveling.Settings
 	{
 		#region CONSTANTS
 		public const string Id = "HeroManagerEnhanced.AdjustableLeveling";
-		public const string DisplayName = "{=adjlvl_mod_name}Adjustable Leveling";
-		public const string FolderName = "Bannerlord.HeroManagerEnhanced/AdjustableLeveling";
-		public const string FormatType = "json";
+	public const string DisplayNameLocalizationKey = "adjlvl_mod_name";
+	public const string DisplayNameFallback = "Adjustable Leveling";
+	public const string FolderName = "Bannerlord.HeroManagerEnhanced/AdjustableLeveling";
+	public const string FormatType = "json";
 
-		public const string PlayerTag = "Player_";
-		public const string NPCTag = "NPC_";
-		public const string ClanTag = "Clan_";
-		public const string CompanionTag = "Companion_";
+	public const string PlayerTag = "Player_";
+	public const string NPCTag = "NPC_";
+	public const string ClanTag = "Clan_";
+	public const string CompanionTag = "Companion_";
 
-		private const string SkillLevelingPlayerSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_PlayerSkills}Player Skills";
-		private const string PlayerSpecificSkillHintText = "{=adjlvl_hint_PlayerSkillSpecific}Further modifies Player skills with a factor. [Default: 1.00]";
+	private const string SkillLevelingPlayerSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_PlayerSkills}Player Skills";
+	private const string PlayerSpecificSkillHintText = "{=adjlvl_hint_PlayerSkillSpecific}Further modifies Player skills with a factor. [Default: 1.00]";
 
-		private const string SkillLevelingNPCSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_NPCSkills}NPC Skills";
-		private const string NPCSpecificSkillHintText = "{=adjlvl_hint_NPCSkillSpecific}Further modifies NPC skills with a factor. Does not modify Clan Member or Companion skills. [Default: 1.00]";
+	private const string SkillLevelingNPCSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_NPCSkills}NPC Skills";
+	private const string NPCSpecificSkillHintText = "{=adjlvl_hint_NPCSkillSpecific}Further modifies NPC skills with a factor. Does not modify Clan Member or Companion skills. [Default: 1.00]";
 
-		private const string SkillLevelingClanSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_ClanSkills}Clan Member Skills";
-		private const string ClanSpecificSkillHintText = "{=adjlvl_hint_ClanSkillSpecific}Further modifies Clan Member skills with a factor. [Default: 1.00]";
+	private const string SkillLevelingClanSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_ClanSkills}Clan Member Skills";
+	private const string ClanSpecificSkillHintText = "{=adjlvl_hint_ClanSkillSpecific}Further modifies Clan Member skills with a factor. [Default: 1.00]";
 
-		private const string SkillLevelingCompanionSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_CompanionSkills}Companion Skills";
-		private const string CompanionSpecificSkillHintText = "{=adjlvl_hint_CompanionSkillSpecific}Further modifies Companion skills with a factor. [Default: 1.00]";
+	private const string SkillLevelingCompanionSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_CompanionSkills}Companion Skills";
+	private const string CompanionSpecificSkillHintText = "{=adjlvl_hint_CompanionSkillSpecific}Further modifies Companion skills with a factor. [Default: 1.00]";
 
-		private static readonly HashSet<string> WarSailsSkillIds = new(StringComparer.InvariantCultureIgnoreCase)
-		{
-			"Mariner",
-			"Boatswain",
-			"Shipmaster",
-		};
-		#endregion
+	private static readonly HashSet<string> WarSailsSkillIds = new(StringComparer.InvariantCultureIgnoreCase)
+	{
+		"Mariner",
+		"Boatswain",
+		"Shipmaster",
+	};
+	#endregion
 
 		#region PROPERTIES
-		public static MCMSettings Settings { get; set; }
+			public static MCMSettings Settings { get; set; } = null!;
 
-		public FluentGlobalSettings GlobalSettings { get; private set; }
-		public FluentPerCampaignSettings PerCampaignSettings { get; private set; }
+			public FluentGlobalSettings GlobalSettings { get; private set; } = null!;
+			public FluentPerCampaignSettings PerCampaignSettings { get; private set; } = null!;
 
 		private Dictionary<string, Func<SkillObject>> SkillObjectGetters { get; } = [];
 		private Dictionary<int, Func<SkillUserEnum, float>> SkillModifierGetters { get; } = [];
@@ -122,11 +124,11 @@ namespace AdjustableLeveling.Settings
 		#endregion
 
 		#region FIELDS
-		private readonly ISettingsBuilder _settingsBuilder;
-		private ISettingsPropertyGroupBuilder _playerSkillsGroupBuilder;
-		private ISettingsPropertyGroupBuilder _npcSkillsGroupBuilder;
-		private ISettingsPropertyGroupBuilder _clanSkillsGroupBuilder;
-		private ISettingsPropertyGroupBuilder _companionSkillsGroupBuilder;
+			private readonly ISettingsBuilder _settingsBuilder = null!;
+			private ISettingsPropertyGroupBuilder _playerSkillsGroupBuilder = null!;
+			private ISettingsPropertyGroupBuilder _npcSkillsGroupBuilder = null!;
+			private ISettingsPropertyGroupBuilder _clanSkillsGroupBuilder = null!;
+			private ISettingsPropertyGroupBuilder _companionSkillsGroupBuilder = null!;
 
 		private int _groupOrder = 0;
 		private int _characterLevelingPropertyOrder = 0;
@@ -145,8 +147,11 @@ namespace AdjustableLeveling.Settings
 			OpenLogFolderAction = OpenLogFolder;
 			ResetAllValuesAction = ShowResetAllConfirmation;
 
+			// Get properly localized display name using TextObject
+			var displayName = new TextObject($"{{={DisplayNameLocalizationKey}}}{DisplayNameFallback}").ToString();
+
 			#region SETTINGS
-			_settingsBuilder = BaseSettingsBuilder.Create(Id, DisplayName)
+			_settingsBuilder = BaseSettingsBuilder.Create(Id, displayName)
 				.SetFormat(FormatType)
 				.SetFolderName(FolderName)
 				.SetSubFolder(string.Empty)
@@ -542,7 +547,7 @@ namespace AdjustableLeveling.Settings
 				new(() => SkillXPModifiers[name], v => SkillXPModifiers[name] = v);
 		}
 
-		public float GetSkillModifier(SkillObject skill, Hero hero)
+		public float GetSkillModifier(SkillObject skill, Hero? hero)
 		{
 			// get skill user
 			var skillUser = GetSkillUser(hero);
