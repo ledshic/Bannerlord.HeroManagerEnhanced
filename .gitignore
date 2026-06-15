@@ -1,0 +1,13 @@
+.DS_Store
+.idea/
+.vscode/
+
+**/bin/
+**/obj/
+_Module/
+out/
+
+*.user
+*.suo
+*.userprefs
+*.zip

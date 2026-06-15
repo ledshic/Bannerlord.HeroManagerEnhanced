@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <GameFolder Condition="'$(GameFolder)' == ''">D:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
+    <GameBinWin64>$(GameFolder)\bin\Win64_Shipping_Client</GameBinWin64>
+
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Platforms>AnyCPU;x64</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <AssemblyName>Bannerlord.HeroManagerEnhanced</AssemblyName>
+    <RootNamespace>Bannerlord.HeroManagerEnhanced</RootNamespace>
+    <Version>1.0.0</Version>
+    <Authors>ledshic</Authors>
+    <Product>Bannerlord.HeroManagerEnhanced</Product>
+    <Description>Hero-focused QoL combo: auto ammo pickup, perk concierge, adjustable leveling.</Description>
+
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="Bannerlord.MCM" Version="5.11.3" IncludeAssets="compile" />
+    <PackageReference Include="Lib.Harmony" Version="2.3.6" />
+    <PackageReference Include="Krafs.Publicizer" Version="2.*" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Publicize Include="TaleWorlds.MountAndBlade" />
+    <Publicize Include="TaleWorlds.Core" />
+    <Publicize Include="TaleWorlds.CampaignSystem" />
+  </ItemGroup>
+
+  <Target Name="CopyToModule" AfterTargets="Build">
+    <ItemGroup>
+      <ModOutputFiles Include="$(OutputPath)$(AssemblyName).dll" />
+      <ModOutputFiles Include="$(OutputPath)$(AssemblyName).pdb" Condition="Exists('$(OutputPath)$(AssemblyName).pdb')" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(ModOutputFiles)"
+          DestinationFolder="$(_ModulePath)bin\Win64_Shipping_Client"
+          SkipUnchangedFiles="true" />
+
+    <ItemGroup>
+      <ModModuleDataFiles Include="$(MSBuildProjectDirectory)\..\..\..\module\ModuleData\**\*.*" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(ModModuleDataFiles)"
+          DestinationFiles="@(ModModuleDataFiles->'$(_ModulePath)ModuleData\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+
+    <Message Text="Bannerlord.HeroManagerEnhanced: Copied build output + ModuleData to _Module/" Importance="high" />
+  </Target>
+
+  <PropertyGroup>
+    <_ModulePath>$(MSBuildProjectDirectory)\..\..\..\_Module\</_ModulePath>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/BUTR/Bannerlord.XmlSchemas/master/ModuleLanguage.xsd">
+  <tags>
+    <tag language="English" />
+  </tags>
+  <strings>
+    <!-- Hero Manager Enhanced -->
+    <string id="HME_INIT_FAIL" text="Hero Manager Enhanced failed to initialize. Check logs." />
+    <string id="HME_LOADED" text="Hero Manager Enhanced loaded (Ammo Pickup, Perk Concierge, Adjustable Leveling)." />
+
+    <!-- Auto Ammo Pickup -->
+    <string id="AAM_SettingsTitle" text="Auto Ammo Pickup {VERSION}" />
+    <string id="AAM_General" text="General" />
+    <string id="AAM_Tuning" text="Tuning" />
+    <string id="AAM_Enabled" text="Enable Mod" />
+    <string id="AAM_EnabledHint" text="Master toggle. When off, no automatic ammo pickup will occur." />
+    <string id="AAM_PickupMode" text="Pickup Mode" />
+    <string id="AAM_PickupModeHint" text="Controls what kind of ammo the mod will automatically pick up." />
+    <string id="AAM_ModeOptionDefault" text="Mode: Default - any usable ammo from equipped weapons" />
+    <string id="AAM_ModeDefaultHint" text="Picks up any usable ammo type inferred from your equipped weapons and free slots." />
+    <string id="AAM_ModeOptionEquipped" text="Mode: Only currently equipped ranged weapon ammo" />
+    <string id="AAM_ModeEquippedHint" text="Restricts pickup to ammo compatible with the currently wielded ranged weapon." />
+    <string id="AAM_ModeOptionDisabled" text="Mode: Disabled" />
+    <string id="AAM_ModeDisabledHint" text="Disables automatic ammo pickup." />
+    <string id="AAM_ModeDefault" text="Default - Any usable ammo based on your equipped weapons" />
+    <string id="AAM_ModeEquipped" text="Only ammo for the currently equipped ranged weapon (in-hand)" />
+    <string id="AAM_ModeDisabled" text="Disabled" />
+    <string id="AAM_DisableCrouch" text="Disable while crouching" />
+    <string id="AAM_DisableCrouchHint" text="When checked (default), automatic pickup is suspended while your character is in the crouched stance (default toggle key: Z)." />
+    <string id="AAM_ShowMessages" text="Show Pickup Messages" />
+    <string id="AAM_ShowMessagesHint" text="Display a small yellow message when ammo is automatically picked up." />
+    <string id="AAM_Distance" text="Auto Pickup Distance (meters)" />
+    <string id="AAM_DistanceHint" text="How close (horizontal) the player must be to auto-pick up ammo. Lower values feel more realistic." />
+    <string id="AAM_LOADED" text="Auto Ammo Pickup loaded. Ammo will be automatically collected in battles when in range." />
+    <string id="AAM_PICKUP" text="Picking up {AMOUNT} {ITEM}" />
+
+    <!-- Perk Concierge -->
+    <string id="GIME_ADDED" text="Perk Concierge: added {ADDED} perks to player. Ignored {IGNORED} perk(s)." />
+    <string id="GIME_IGNORED" text="Ignored perks: {LIST}" />
+    <string id="GIME_NOT_READY" text="Perk Concierge: campaign is not ready yet." />
+    <string id="GIME_NO_HERO" text="Perk Concierge: main hero is unavailable in the current context." />
+    <string id="GIME_MCM_MOD_NAME" text="Perk Concierge" />
+    <string id="GIME_MCM_ACTIONS" text="Actions" />
+    <string id="GIME_MCM_AUTO_NAME" text="Auto" />
+    <string id="GIME_MCM_AUTO_HINT" text="Automatically apply perks once after a campaign is loaded." />
+    <string id="GIME_MCM_APPLY_NAME" text="Perks Activation" />
+    <string id="GIME_MCM_APPLY_BUTTON" text="Apply" />
+    <string id="GIME_MCM_APPLY_HINT" text="Manually apply all available perks to the player now." />
+
+    <!-- Adjustable Leveling -->
+    <string id="adjlvl_mod_name" text="Adjustable Leveling" />
+    <string id="adjlvl_group_CharacterLeveling" text="Character Leveling" />
+    <string id="adjlvl_name_FasterLevelingCurve" text="Faster Leveling Curve" />
+    <string id="adjlvl_hint_FasterLevelingCurve" text="Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Default: OFF] WARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!" />
+    <string id="adjlvl_name_MaxCharacterLevel" text="Maximum Character Level" />
+    <string id="adjlvl_hint_MaxCharacterLevel" text="Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]" />
+    <string id="adjlvl_name_CharacterLevelXPModifier" text="Character Level XP Modifier" />
+    <string id="adjlvl_hint_CharacterLevelXPModifier" text="Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Default: 1.00]" />
+    <string id="adjlvl_name_LevelsPerAttributePoint" text="Levels per Attribute Point" />
+    <string id="adjlvl_hint_LevelsPerAttributePoint" text="Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Default: 4]" />
+    <string id="adjlvl_name_FocusPointsPerLevel" text="Focus Points per Level" />
+    <string id="adjlvl_hint_FocusPointsPerLevel" text="Focus points gained per level. [Default: 1]" />
+    <string id="adjlvl_name_MaxAttributePointsForAttribute" text="Max Attribute Points for Attribute" />
+    <string id="adjlvl_hint_MaxAttributePointsForAttribute" text="Attribute point limit per attribute. [Default: 10]" />
+    <string id="adjlvl_name_MaxFocusPointsForSkill" text="Max Focus Points for Skill" />
+    <string id="adjlvl_hint_MaxFocusPointsForSkill" text="Focus point limit per skill. (UI will at most show 5 points) [Default: 5]" />
+    <string id="adjlvl_name_AttributePointsAtStart" text="Attribute Points at Start" />
+    <string id="adjlvl_hint_AttributePointsAtStart" text="Apparently affects the attribute points with which NPCs start, but not the player. [Default: 15]" />
+    <string id="adjlvl_name_FocusPointsAtStart" text="Focus Points at Start" />
+    <string id="adjlvl_hint_FocusPointsAtStart" text="Apparently affects the focus points with which NPCs start, but not the player. [Default: 5]" />
+    <string id="adjlvl_group_SkillLeveling" text="Skill Leveling" />
+    <string id="adjlvl_name_LearningLimitAttributePoint" text="Learning Limit Increase per Attribute Point" />
+    <string id="adjlvl_hint_LearningLimitAttributePoint" text="E.g. at 3 and with 10 AP an additional 30 skill points can be gained at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]" />
+    <string id="adjlvl_name_LearningLimitFocusPoint" text="Learning Limit Increase per Focus Point" />
+    <string id="adjlvl_hint_LearningLimitFocusPoint" text="Adjust the learning limit increase per focus point. [Default: 50]" />
+    <string id="adjlvl_name_BaseLearningLimit" text="Base Learning Limit" />
+    <string id="adjlvl_hint_BaseLearningLimit" text="The base learning limit achievable without focus points. [Default: 50]" />
+    <string id="adjlvl_name_MinLearningRate" text="Minimum Learning Rate" />
+    <string id="adjlvl_hint_MinLearningRate" text="Set a minimum learning rate, so that no learning limit exists. [Default: 0.00]" />
+    <string id="adjlvl_name_MaxLearningRate" text="Maximum Learning Rate" />
+    <string id="adjlvl_hint_MaxLearningRate" text="Set a maximum learning rate, zero disables it. [Default: 0.00]" />
+    <string id="adjlvl_name_PlayerSkillXPModifier" text="Player Skill XP Modifier" />
+    <string id="adjlvl_hint_PlayerSkillXPModifier" text="Sets the skill learning rate for the player character. [Default: 1.00]" />
+    <string id="adjlvl_name_NPCSkillXPModifier" text="NPC Skill XP Modifier" />
+    <string id="adjlvl_hint_NPCSkillXPModifier" text="Sets the skill learning rate for all NPCs, except clan members and companions. [Default: 1.00]" />
+    <string id="adjlvl_name_ClanSkillXPModifier" text="Clan Skill XP Modifier" />
+    <string id="adjlvl_hint_ClanSkillXPModifier" text="Sets the skill learning rate for clan members. [Default: 1.00]" />
+    <string id="adjlvl_name_CompanionSkillXPModifier" text="Companion Skill XP Modifier" />
+    <string id="adjlvl_hint_CompanionSkillXPModifier" text="Sets the skill learning rate for companions. [Default: 1.00]" />
+    <string id="adjlvl_group_PlayerSkills" text="Player Skills" />
+    <string id="adjlvl_hint_PlayerSkillSpecific" text="Further modifies Player skills with a factor. [Default: 1.00]" />
+    <string id="adjlvl_group_NPCSkills" text="NPC Skills" />
+    <string id="adjlvl_hint_NPCSkillSpecific" text="Further modifies NPC skills with a factor. Does not modify Clan Member or Companion skills. [Default: 1.00]" />
+    <string id="adjlvl_group_ClanSkills" text="Clan Member Skills" />
+    <string id="adjlvl_hint_ClanSkillSpecific" text="Further modifies Clan Member skills with a factor. [Default: 1.00]" />
+    <string id="adjlvl_group_CompanionSkills" text="Companion Skills" />
+    <string id="adjlvl_hint_CompanionSkillSpecific" text="Further modifies Companion skills with a factor. [Default: 1.00]" />
+    <string id="adjlvl_group_Other" text="Other" />
+    <string id="adjlvl_name_TroopXPModifier" text="Troop XP Modifier" />
+    <string id="adjlvl_hint_TroopXPModifier" text="Modifies XP gained for upgrading troops. [Default 1.00]" />
+    <string id="adjlvl_name_EnableLogging" text="Enable logging (careful, read info below)" />
+    <string id="adjlvl_hint_EnableLogging" text="WARNING: This can generate a lot of logs very quickly. Enable only for troubleshooting. [Default: Off]" />
+    <string id="adjlvl_name_OpenLogFolder" text="Open Log Folder" />
+    <string id="adjlvl_btn_OpenLogFolder" text="Open Log Folder" />
+    <string id="adjlvl_hint_OpenLogFolder" text="Opens the Adjustable Leveling log folder in Explorer." />
+    <string id="adjlvl_name_ResetAll" text="Reset All Settings" />
+    <string id="adjlvl_btn_ResetAll" text="Reset All" />
+    <string id="adjlvl_hint_ResetAll" text="Resets all Adjustable Leveling values to their defaults for this settings scope." />
+    <string id="adjlvl_group_SmithingResearch" text="Smithing Research" />
+    <string id="adjlvl_name_PartResearch" text="Part Research Modifier" />
+    <string id="adjlvl_hint_PartResearch" text="Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]" />
+    <string id="adjlvl_name_FreeBuildPartResearch" text="Free Build Part Research Modifier" />
+    <string id="adjlvl_hint_FreeBuildPartResearch" text="Adjust smithing part research gain rate when in free build mode. [Default: 10%]" />
+    <string id="adjlvl_reset_title" text="Reset Adjustable Leveling Settings" />
+    <string id="adjlvl_reset_body" text="Reset all Adjustable Leveling values to their defaults? This cannot be undone." />
+    <string id="adjlvl_yes" text="Yes" />
+    <string id="adjlvl_no" text="No" />
+    <string id="adjlvl_ok" text="OK" />
+    <string id="adjlvl_reset_done" text="Adjustable Leveling: all settings reset to defaults." />
+    <string id="adjlvl_log_dir_unavailable" text="Adjustable Leveling: log directory path is unavailable." />
+    <string id="adjlvl_log_warning_title" text="Adjustable Leveling Log Size Warning" />
+    <string id="adjlvl_log_warning_body" text="Adjustable Leveling detected large log files.\n\nCombined size: {SIZE} MB across {COUNT} file(s).\nLocation: {DIR}\n\nConsider disabling logging in MCM when not troubleshooting and deleting old log files." />
+    <string id="tor_skill_faith_str" text="Faith" />
+    <string id="tor_skill_gunpowder_str" text="Gunpowder" />
+    <string id="tor_skill_spellcraft_str" text="Spellcraft" />
+  </strings>
+</base>

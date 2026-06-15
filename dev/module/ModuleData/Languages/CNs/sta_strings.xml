@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/BUTR/Bannerlord.XmlSchemas/master/ModuleLanguage.xsd">
+  <tags>
+    <tag language="简体中文" />
+  </tags>
+  <strings>
+    <!-- Hero Manager Enhanced -->
+    <string id="HME_INIT_FAIL" text="英雄管理增强初始化失败，请检查日志。" />
+    <string id="HME_LOADED" text="英雄管理增强已加载（自动弹药拾取、天赋管家、可调等级）。" />
+
+    <!-- Auto Ammo Pickup -->
+    <string id="AAM_SettingsTitle" text="自动弹药拾取 {VERSION}" />
+    <string id="AAM_General" text="常规" />
+    <string id="AAM_Tuning" text="调整" />
+    <string id="AAM_Enabled" text="启用模组" />
+    <string id="AAM_EnabledHint" text="总开关。关闭后，不会自动拾取任何弹药。" />
+    <string id="AAM_PickupMode" text="拾取模式" />
+    <string id="AAM_PickupModeHint" text="控制模组会自动拾取哪种弹药。" />
+    <string id="AAM_ModeOptionDefault" text="模式：默认（按已装备武器拾取可用弹药）" />
+    <string id="AAM_ModeDefaultHint" text="根据你已装备武器与空槽位推断可拾取弹药类型。" />
+    <string id="AAM_ModeOptionEquipped" text="模式：仅当前手持远程武器弹药" />
+    <string id="AAM_ModeEquippedHint" text="仅拾取与当前手持远程武器兼容的弹药。" />
+    <string id="AAM_ModeOptionDisabled" text="模式：禁用" />
+    <string id="AAM_ModeDisabledHint" text="禁用自动弹药拾取。" />
+    <string id="AAM_ModeDefault" text="默认 - 根据已装备武器拾取任何可用弹药" />
+    <string id="AAM_ModeEquipped" text="仅拾取当前装备的远程武器（手中）弹药" />
+    <string id="AAM_ModeDisabled" text="已禁用" />
+    <string id="AAM_DisableCrouch" text="蹲伏时禁用" />
+    <string id="AAM_DisableCrouchHint" text="勾选后（默认），当角色处于蹲伏姿态时会暂停自动拾取（默认切换键：Z）。" />
+    <string id="AAM_ShowMessages" text="显示拾取消息" />
+    <string id="AAM_ShowMessagesHint" text="自动拾取弹药时显示黄色提示消息。" />
+    <string id="AAM_Distance" text="自动拾取距离（米）" />
+    <string id="AAM_DistanceHint" text="玩家需要靠近到多远才会自动拾取弹药。较低数值更真实。" />
+    <string id="AAM_LOADED" text="自动弹药拾取已加载。战斗中在范围内时会自动收集弹药。" />
+    <string id="AAM_PICKUP" text="拾取 {AMOUNT} {ITEM}" />
+
+    <!-- Perk Concierge -->
+    <string id="GIME_ADDED" text="天赋管家：为玩家添加了 {ADDED} 个天赋。忽略了 {IGNORED} 个。" />
+    <string id="GIME_IGNORED" text="已忽略的天赋：{LIST}" />
+    <string id="GIME_NOT_READY" text="天赋管家：战役尚未就绪。" />
+    <string id="GIME_NO_HERO" text="天赋管家：当前上下文无法获取主角。" />
+    <string id="GIME_MCM_MOD_NAME" text="天赋管家" />
+    <string id="GIME_MCM_ACTIONS" text="操作" />
+    <string id="GIME_MCM_AUTO_NAME" text="自动" />
+    <string id="GIME_MCM_AUTO_HINT" text="在战役载入后自动应用一次天赋。" />
+    <string id="GIME_MCM_APPLY_NAME" text="天赋激活" />
+    <string id="GIME_MCM_APPLY_BUTTON" text="应用" />
+    <string id="GIME_MCM_APPLY_HINT" text="立即手动为玩家应用所有可用天赋。" />
+
+    <!-- Adjustable Leveling -->
+    <string id="adjlvl_mod_name" text="可调等级" />
+    <string id="adjlvl_group_CharacterLeveling" text="角色等级" />
+    <string id="adjlvl_name_FasterLevelingCurve" text="更快升级曲线" />
+    <string id="adjlvl_hint_FasterLevelingCurve" text="前期更慢、后期更快。62级总经验：开启约4070万，关闭约9540万。[默认：关闭] 警告：建议在继续游戏前备份存档；在已有存档中更改此选项可能会将等级经验重置到下一级的一半（若转换后总经验超出当前等级范围）。" />
+    <string id="adjlvl_name_MaxCharacterLevel" text="最大角色等级" />
+    <string id="adjlvl_hint_MaxCharacterLevel" text="调整可达到的最高角色等级。更高等级需要更多经验！[默认：62]" />
+    <string id="adjlvl_name_CharacterLevelXPModifier" text="角色等级经验修正" />
+    <string id="adjlvl_hint_CharacterLevelXPModifier" text="调整技能经验转换为等级经验的比率，1.00 为默认 1:1。[默认：1.00]" />
+    <string id="adjlvl_name_LevelsPerAttributePoint" text="每属性点所需等级" />
+    <string id="adjlvl_hint_LevelsPerAttributePoint" text="获得一个属性点所需的升级次数。仅影响之后的升级，建议在新战役开始前修改！[默认：4]" />
+    <string id="adjlvl_name_FocusPointsPerLevel" text="每级专注点数" />
+    <string id="adjlvl_hint_FocusPointsPerLevel" text="每升一级获得的专注点数。[默认：1]" />
+    <string id="adjlvl_name_MaxAttributePointsForAttribute" text="单项属性上限" />
+    <string id="adjlvl_hint_MaxAttributePointsForAttribute" text="每个属性的属性点上限。[默认：10]" />
+    <string id="adjlvl_name_MaxFocusPointsForSkill" text="单项技能专注上限" />
+    <string id="adjlvl_hint_MaxFocusPointsForSkill" text="每个技能的专注点上限。（界面最多显示 5 点）[默认：5]" />
+    <string id="adjlvl_name_AttributePointsAtStart" text="初始属性点" />
+    <string id="adjlvl_hint_AttributePointsAtStart" text="似乎影响 NPC 的初始属性点，但不影响玩家。[默认：15]" />
+    <string id="adjlvl_name_FocusPointsAtStart" text="初始专注点" />
+    <string id="adjlvl_hint_FocusPointsAtStart" text="似乎影响 NPC 的初始专注点，但不影响玩家。[默认：5]" />
+    <string id="adjlvl_group_SkillLeveling" text="技能等级" />
+    <string id="adjlvl_name_LearningLimitAttributePoint" text="每属性点增加的学习上限" />
+    <string id="adjlvl_hint_LearningLimitAttributePoint" text="例如设为 3 且 10 点属性时，可额外学习 30 点技能；设为 5 时可额外学习 50 点。[默认：3]" />
+    <string id="adjlvl_name_LearningLimitFocusPoint" text="每专注点增加的学习上限" />
+    <string id="adjlvl_hint_LearningLimitFocusPoint" text="调整每点专注增加的学习上限。[默认：50]" />
+    <string id="adjlvl_name_BaseLearningLimit" text="基础学习上限" />
+    <string id="adjlvl_hint_BaseLearningLimit" text="不投入专注点时可达到的基础学习上限。[默认：50]" />
+    <string id="adjlvl_name_MinLearningRate" text="最低学习速率" />
+    <string id="adjlvl_hint_MinLearningRate" text="设置最低学习速率，从而消除学习上限。[默认：0.00]" />
+    <string id="adjlvl_name_MaxLearningRate" text="最高学习速率" />
+    <string id="adjlvl_hint_MaxLearningRate" text="设置最高学习速率，0 表示不限制。[默认：0.00]" />
+    <string id="adjlvl_name_PlayerSkillXPModifier" text="玩家技能经验修正" />
+    <string id="adjlvl_hint_PlayerSkillXPModifier" text="设置玩家角色的技能学习速率。[默认：1.00]" />
+    <string id="adjlvl_name_NPCSkillXPModifier" text="NPC 技能经验修正" />
+    <string id="adjlvl_hint_NPCSkillXPModifier" text="设置所有 NPC 的技能学习速率（不含家族成员与同伴）。[默认：1.00]" />
+    <string id="adjlvl_name_ClanSkillXPModifier" text="家族成员技能经验修正" />
+    <string id="adjlvl_hint_ClanSkillXPModifier" text="设置家族成员的技能学习速率。[默认：1.00]" />
+    <string id="adjlvl_name_CompanionSkillXPModifier" text="同伴技能经验修正" />
+    <string id="adjlvl_hint_CompanionSkillXPModifier" text="设置同伴的技能学习速率。[默认：1.00]" />
+    <string id="adjlvl_group_PlayerSkills" text="玩家技能" />
+    <string id="adjlvl_hint_PlayerSkillSpecific" text="进一步按系数修正玩家各项技能。[默认：1.00]" />
+    <string id="adjlvl_group_NPCSkills" text="NPC 技能" />
+    <string id="adjlvl_hint_NPCSkillSpecific" text="进一步按系数修正 NPC 各项技能（不含家族成员与同伴）。[默认：1.00]" />
+    <string id="adjlvl_group_ClanSkills" text="家族成员技能" />
+    <string id="adjlvl_hint_ClanSkillSpecific" text="进一步按系数修正家族成员各项技能。[默认：1.00]" />
+    <string id="adjlvl_group_CompanionSkills" text="同伴技能" />
+    <string id="adjlvl_hint_CompanionSkillSpecific" text="进一步按系数修正同伴各项技能。[默认：1.00]" />
+    <string id="adjlvl_group_Other" text="其他" />
+    <string id="adjlvl_name_TroopXPModifier" text="部队经验修正" />
+    <string id="adjlvl_hint_TroopXPModifier" text="修正升级部队时获得的经验。（名册显示数值未修正，但丢装备上限会按修正值计算）[默认：1.00]" />
+    <string id="adjlvl_name_EnableLogging" text="启用日志（请谨慎，阅读下方说明）" />
+    <string id="adjlvl_hint_EnableLogging" text="警告：可能快速生成大量日志并占用较大磁盘空间。日志位于 文档/Mount and Blade II Bannerlord/Configs/ModLogs/HeroManagerEnhanced_AdjustableLeveling*.log。仅在排查问题时启用。[默认：关闭]" />
+    <string id="adjlvl_name_OpenLogFolder" text="打开日志文件夹" />
+    <string id="adjlvl_btn_OpenLogFolder" text="打开日志文件夹" />
+    <string id="adjlvl_hint_OpenLogFolder" text="在资源管理器中打开可调等级日志文件夹。" />
+    <string id="adjlvl_name_ResetAll" text="重置全部设置" />
+    <string id="adjlvl_btn_ResetAll" text="全部重置" />
+    <string id="adjlvl_hint_ResetAll" text="将当前作用域内所有可调等级设置恢复为默认值。" />
+    <string id="adjlvl_group_SmithingResearch" text="锻造研究" />
+    <string id="adjlvl_name_PartResearch" text="部件研究修正" />
+    <string id="adjlvl_hint_PartResearch" text="调整锻造与熔炼武器时的部件研究获取速率。[默认：100%]" />
+    <string id="adjlvl_name_FreeBuildPartResearch" text="自由建造部件研究修正" />
+    <string id="adjlvl_hint_FreeBuildPartResearch" text="调整自由建造模式下的部件研究获取速率。默认设置下自由建造解锁部件较慢。[默认：10%]" />
+    <string id="adjlvl_reset_title" text="重置可调等级设置" />
+    <string id="adjlvl_reset_body" text="将所有可调等级设置恢复为默认值？此操作无法撤销。" />
+    <string id="adjlvl_yes" text="是" />
+    <string id="adjlvl_no" text="否" />
+    <string id="adjlvl_ok" text="确定" />
+    <string id="adjlvl_reset_done" text="可调等级：所有设置已恢复为默认值。" />
+    <string id="adjlvl_log_dir_unavailable" text="可调等级：日志目录路径不可用。" />
+    <string id="adjlvl_log_warning_title" text="可调等级日志体积警告" />
+    <string id="adjlvl_log_warning_body" text="可调等级检测到较大的日志文件。\n\n合计 {SIZE} MB，共 {COUNT} 个文件。\n位置：{DIR}\n\n若非排查问题，建议在 MCM 中关闭日志并删除旧日志文件。" />
+    <string id="tor_skill_faith_str" text="信仰" />
+    <string id="tor_skill_gunpowder_str" text="火药" />
+    <string id="tor_skill_spellcraft_str" text="法术" />
+  </strings>
+</base>
