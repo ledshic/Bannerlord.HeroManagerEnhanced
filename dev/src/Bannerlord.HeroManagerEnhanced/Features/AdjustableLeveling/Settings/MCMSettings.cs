@@ -433,9 +433,9 @@ namespace AdjustableLeveling.Settings
 			AddSkill("Steward", "{=stewardskill}Steward", () => DefaultSkills.Steward);
 			AddSkill("Medicine", "{=JKH59XNp}Medicine", () => DefaultSkills.Medicine);
 			AddSkill("Engineering", "{=engineeringskill}Engineering", () => DefaultSkills.Engineering);
-			AddOptionalDefaultSkill("Mariner", "Mariner", "Mariner");
-			AddOptionalDefaultSkill("Boatswain", "Boatswain", "Boatswain");
-			AddOptionalDefaultSkill("Shipmaster", "Shipmaster", "Shipmaster");
+			AddOptionalDefaultSkill("Mariner", "{=adjlvl_skill_Mariner}Mariner", "Mariner");
+			AddOptionalDefaultSkill("Boatswain", "{=adjlvl_skill_Boatswain}Boatswain", "Boatswain");
+			AddOptionalDefaultSkill("Shipmaster", "{=adjlvl_skill_Shipmaster}Shipmaster", "Shipmaster");
 			#endregion
 			#endregion
 		}

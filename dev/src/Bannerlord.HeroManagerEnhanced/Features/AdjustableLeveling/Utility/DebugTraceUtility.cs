@@ -1,28 +1,23 @@
-using System.IO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using AdjustableLeveling.Settings;
+using TaleWorlds.Library;
+using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace AdjustableLeveling.Utility
 {
   public static class DebugTraceUtility
   {
-    public const string LogFilePrefix = "HeroManagerEnhanced_AdjustableLeveling";
-
     public static bool Enabled { get; set; } = false;
-
-    private static readonly string LogPath = Path.Combine(
-      Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-      "Mount and Blade II Bannerlord",
-      "Configs",
-      "ModLogs",
-      "HeroManagerEnhanced_AdjustableLeveling.log");
-
-    public static string LogDirectoryPath => Path.GetDirectoryName(LogPath);
+    public static string? LogDirectoryPath => GetLogDirectoryPath();
 
     private static readonly object _lock = new();
     private static readonly Dictionary<string, DateTime> _lastLogByKey = [];
     private static readonly HashSet<string> _loggedOnceKeys = [];
+    private static DateTime _lastMessageDisplayUtc = DateTime.MinValue;
+    private const double DebugMessageDisplayCooldownSeconds = 5.0;
 
     public static void Log(string message)
     {
@@ -31,7 +26,7 @@ namespace AdjustableLeveling.Utility
 
       try
       {
-        AppendLine($"[AdjustableLeveling][{DateTime.Now:HH:mm:ss.fff}] {message}");
+        DisplayDebugMessage($"[AdjustableLeveling] {message}");
       }
       catch
       {
@@ -42,7 +37,7 @@ namespace AdjustableLeveling.Utility
     {
       try
       {
-        AppendLine($"[AdjustableLeveling][{DateTime.Now:HH:mm:ss.fff}] {message}");
+        DisplayDebugMessage($"[AdjustableLeveling] {message}");
       }
       catch
       {
@@ -95,37 +90,29 @@ namespace AdjustableLeveling.Utility
       }
     }
 
-    public static (long TotalBytes, int FileCount) GetCombinedLogSize()
+    public static (long totalBytes, int fileCount) GetCombinedLogSize()
     {
+      var logDirectoryPath = GetLogDirectoryPath();
+      if (string.IsNullOrWhiteSpace(logDirectoryPath) || !Directory.Exists(logDirectoryPath))
+        return (0L, 0);
+
+      long totalBytes = 0L;
+      int fileCount = 0;
+
       try
       {
-        var dir = LogDirectoryPath;
-        if (string.IsNullOrWhiteSpace(dir) || !Directory.Exists(dir))
-          return (0L, 0);
-
-        long total = 0;
-        int count = 0;
-        foreach (var path in Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly))
+        foreach (var filePath in Directory.EnumerateFiles(logDirectoryPath, "HeroManagerEnhanced_AdjustableLeveling*.log"))
         {
-          var fileName = Path.GetFileName(path);
-          if (string.IsNullOrWhiteSpace(fileName))
-            continue;
-          if (!fileName.StartsWith(LogFilePrefix, StringComparison.OrdinalIgnoreCase))
-            continue;
-          if (fileName.IndexOf(".log", StringComparison.OrdinalIgnoreCase) < 0)
-            continue;
-
-          var fileInfo = new FileInfo(path);
-          total += fileInfo.Length;
-          count++;
+          var fileInfo = new FileInfo(filePath);
+          totalBytes += fileInfo.Length;
+          fileCount++;
         }
-
-        return (total, count);
       }
       catch
       {
-        return (0L, 0);
       }
+
+      return (totalBytes, fileCount);
     }
 
     private static bool IsEnabled()
@@ -142,15 +129,45 @@ namespace AdjustableLeveling.Utility
       return Enabled;
     }
 
-    private static void AppendLine(string line)
+    private static void DisplayDebugMessage(string message)
     {
-      lock (_lock)
+      try
       {
-        var dir = Path.GetDirectoryName(LogPath);
-        if (!string.IsNullOrWhiteSpace(dir))
-          Directory.CreateDirectory(dir);
+        // Rate limit messages to avoid spam
+        var now = DateTime.UtcNow;
+        if ((now - _lastMessageDisplayUtc).TotalSeconds < DebugMessageDisplayCooldownSeconds)
+        {
+          return;
+        }
 
-        File.AppendAllText(LogPath, line + Environment.NewLine);
+        _lastMessageDisplayUtc = now;
+
+        var text = new TextObject(message);
+        InformationManager.DisplayMessage(new InformationMessage(
+          text.ToString(),
+          Colors.White));
+
+        // Also print to debug output
+        Debug.Print($"[HeroManagerEnhanced] {message}");
+      }
+      catch
+      {
+      }
+    }
+
+    private static string GetLogDirectoryPath()
+    {
+      try
+      {
+        var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        if (string.IsNullOrWhiteSpace(documentsPath))
+          return string.Empty;
+
+        return Path.Combine(documentsPath, "Mount and Blade II Bannerlord", "Configs", "ModLogs");
+      }
+      catch
+      {
+        return string.Empty;
       }
     }
   }

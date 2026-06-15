@@ -121,6 +121,9 @@
     <string id="adjlvl_log_dir_unavailable" text="可调等级：日志目录路径不可用。" />
     <string id="adjlvl_log_warning_title" text="可调等级日志体积警告" />
     <string id="adjlvl_log_warning_body" text="可调等级检测到较大的日志文件。\n\n合计 {SIZE} MB，共 {COUNT} 个文件。\n位置：{DIR}\n\n若非排查问题，建议在 MCM 中关闭日志并删除旧日志文件。" />
+    <string id="adjlvl_skill_Mariner" text="水手" />
+    <string id="adjlvl_skill_Boatswain" text="大副" />
+    <string id="adjlvl_skill_Shipmaster" text="船长" />
     <string id="tor_skill_faith_str" text="信仰" />
     <string id="tor_skill_gunpowder_str" text="火药" />
     <string id="tor_skill_spellcraft_str" text="法术" />

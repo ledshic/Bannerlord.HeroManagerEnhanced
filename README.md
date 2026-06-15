@@ -16,7 +16,7 @@ Hero-focused QoL combo mod integrating:
 ## Build
 
 ```powershell
-./dev/build.ps1 -Version v1.0.0
+./dev/build.cmd -Version v1.0.0
 ```
 
 Output: `out/Bannerlord.HeroManagerEnhanced/` and zip package.

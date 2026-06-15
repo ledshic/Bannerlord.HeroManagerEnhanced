@@ -121,6 +121,9 @@
     <string id="adjlvl_log_dir_unavailable" text="Adjustable Leveling: log directory path is unavailable." />
     <string id="adjlvl_log_warning_title" text="Adjustable Leveling Log Size Warning" />
     <string id="adjlvl_log_warning_body" text="Adjustable Leveling detected large log files.\n\nCombined size: {SIZE} MB across {COUNT} file(s).\nLocation: {DIR}\n\nConsider disabling logging in MCM when not troubleshooting and deleting old log files." />
+    <string id="adjlvl_skill_Mariner" text="Mariner" />
+    <string id="adjlvl_skill_Boatswain" text="Boatswain" />
+    <string id="adjlvl_skill_Shipmaster" text="Shipmaster" />
     <string id="tor_skill_faith_str" text="Faith" />
     <string id="tor_skill_gunpowder_str" text="Gunpowder" />
     <string id="tor_skill_spellcraft_str" text="Spellcraft" />
