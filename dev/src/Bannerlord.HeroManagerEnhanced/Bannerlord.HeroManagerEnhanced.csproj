@@ -4,7 +4,7 @@
     <GameFolder Condition="'$(GameFolder)' == ''">D:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
     <GameBinWin64>$(GameFolder)\bin\Win64_Shipping_Client</GameBinWin64>
 
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x64</Platforms>
@@ -20,6 +20,7 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
 
