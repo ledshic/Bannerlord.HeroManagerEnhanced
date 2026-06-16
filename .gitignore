@@ -1,13 +1,14 @@
-.DS_Store
-.idea/
-.vscode/
-
+# .NET build intermediates
 **/bin/
 **/obj/
-_Module/
-out/
 
+# Bannerlord module/package outputs
+/out/
+/output/
+/_Module/
+
+# Local IDE/user files
+.vs/
+.vscode/
 *.user
 *.suo
-*.userprefs
-*.zip
