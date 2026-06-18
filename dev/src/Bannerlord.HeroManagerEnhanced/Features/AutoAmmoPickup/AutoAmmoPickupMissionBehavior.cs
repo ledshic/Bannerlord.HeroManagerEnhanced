@@ -86,7 +86,7 @@ namespace Bannerlord.AutoAmmoPickup
                 // Use the configurable distance from MCM
                 float pickupDistance = Math.Max(1.0f, Math.Min(6.0f, settings.AutoPickupDistance));
 
-                SpawnedItemEntity nearest = FindNearestUsableAmmo(
+                SpawnedItemEntity? nearest = FindNearestUsableAmmo(
                     player,
                     allowedRefillClasses,
                     allowedRefillItemTypes,
@@ -239,7 +239,7 @@ namespace Bannerlord.AutoAmmoPickup
         /// <summary>
         /// Scans active dropped items and returns the closest one that is usable ammo for the player.
         /// </summary>
-        private SpawnedItemEntity FindNearestUsableAmmo(
+        private SpawnedItemEntity? FindNearestUsableAmmo(
             Agent player,
             HashSet<WeaponClass> allowedRefillClasses,
             HashSet<ItemObject.ItemTypeEnum> allowedRefillItemTypes,
@@ -254,7 +254,7 @@ namespace Bannerlord.AutoAmmoPickup
 
             List<WeakGameEntity> entities = Mission.GetActiveEntitiesWithScriptComponentOfType<SpawnedItemEntity>().ToList();
 
-            SpawnedItemEntity best = null;
+            SpawnedItemEntity? best = null;
             float bestDistSq = float.MaxValue;
 
             foreach (WeakGameEntity ge in entities)

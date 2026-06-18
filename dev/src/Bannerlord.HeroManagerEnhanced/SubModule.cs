@@ -3,6 +3,7 @@ using System.Reflection;
 using AdjustableLeveling.General;
 using Bannerlord.AutoAmmoPickup;
 using Bannerlord.GimeAllPerks;
+using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -17,6 +18,7 @@ public sealed class SubModule : MBSubModuleBase
     private const string HarmonyId = "Bannerlord.HeroManagerEnhanced";
 
     private Harmony? _harmony;
+    private UIExtender? _uiExtender;
 
     public override void OnSubModuleLoad()
     {
@@ -24,6 +26,10 @@ public sealed class SubModule : MBSubModuleBase
 
         try
         {
+            _uiExtender = UIExtender.Create("Bannerlord.HeroManagerEnhanced");
+            _uiExtender.Register(Assembly.GetExecutingAssembly());
+            _uiExtender.Enable();
+
             _harmony = new Harmony(HarmonyId);
             _harmony.PatchAll(Assembly.GetExecutingAssembly());
 
@@ -45,6 +51,10 @@ public sealed class SubModule : MBSubModuleBase
 
         try
         {
+            _uiExtender?.Disable();
+            _uiExtender?.Deregister();
+            _uiExtender = null;
+
             _harmony?.UnpatchAll(HarmonyId);
             _harmony = null;
         }

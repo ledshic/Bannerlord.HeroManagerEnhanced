@@ -64,9 +64,9 @@ public static class AdjustableLevelingBootstrap
         {
             ShowLargeLogWarningIfNeeded();
 
-            if (game.GameType is Campaign)
+            if (game?.GameType is Campaign && MCMSettings.Settings is { } settings)
             {
-                MCMSettings.Settings.OnGameStart();
+                settings.OnGameStart();
 
                 _characterDevelopmentModel = _cdmInitializer?.Invoke() ?? new AdjustableCharacterDevelopmentModel();
                 gameStarter.AddModel(_characterDevelopmentModel);
@@ -85,9 +85,9 @@ public static class AdjustableLevelingBootstrap
 
         try
         {
-            if (game.GameType is Campaign)
+            if (game?.GameType is Campaign && MCMSettings.Settings is { } settings)
             {
-                MCMSettings.Settings.OnNewGameCreated();
+                settings.OnNewGameCreated();
                 GameCreatedOrLoaded(game);
             }
         }
@@ -103,9 +103,9 @@ public static class AdjustableLevelingBootstrap
 
         try
         {
-            if (game.GameType is Campaign)
+            if (game?.GameType is Campaign && MCMSettings.Settings is { } settings)
             {
-                MCMSettings.Settings.OnGameLoaded();
+                settings.OnGameLoaded();
                 GameCreatedOrLoaded(game);
             }
         }
@@ -121,9 +121,9 @@ public static class AdjustableLevelingBootstrap
 
         try
         {
-            if (game.GameType is Campaign)
+            if (game?.GameType is Campaign && MCMSettings.Settings is { } settings)
             {
-                MCMSettings.Settings.OnGameEnd();
+                settings.OnGameEnd();
             }
         }
         catch (Exception exc)

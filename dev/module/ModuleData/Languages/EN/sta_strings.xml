@@ -8,6 +8,7 @@
     <!-- Hero Manager Enhanced -->
     <string id="HME_INIT_FAIL" text="Hero Manager Enhanced failed to initialize. Check logs." />
     <string id="HME_LOADED" text="Hero Manager Enhanced loaded (Ammo Pickup, Perk Concierge, Adjustable Leveling)." />
+    <string id="HME_AUTO_BUTTON" text="Auto" />
 
     <!-- Auto Ammo Pickup -->
     <string id="AAM_SettingsTitle" text="Auto Ammo Pickup {VERSION}" />

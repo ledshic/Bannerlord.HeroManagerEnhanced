@@ -66,7 +66,7 @@ namespace AdjustableLeveling.Settings
 			public FluentGlobalSettings GlobalSettings { get; private set; } = null!;
 			public FluentPerCampaignSettings PerCampaignSettings { get; private set; } = null!;
 
-		private Dictionary<string, Func<SkillObject>> SkillObjectGetters { get; } = [];
+		private Dictionary<string, Func<SkillObject?>> SkillObjectGetters { get; } = [];
 		private Dictionary<int, Func<SkillUserEnum, float>> SkillModifierGetters { get; } = [];
 		private List<int> WarnMissingSkillGetterOnceList { get; } = [];
 		private List<int> WarnMissingSkillModifierOnceList { get; } = [];
@@ -151,7 +151,7 @@ namespace AdjustableLeveling.Settings
 			var displayName = new TextObject($"{{={DisplayNameLocalizationKey}}}{DisplayNameFallback}").ToString();
 
 			#region SETTINGS
-			_settingsBuilder = BaseSettingsBuilder.Create(Id, displayName)
+			_settingsBuilder = BaseSettingsBuilder.Create(Id, displayName)!
 				.SetFormat(FormatType)
 				.SetFolderName(FolderName)
 				.SetSubFolder(string.Empty)
@@ -483,7 +483,7 @@ namespace AdjustableLeveling.Settings
 			DebugTraceUtility.Enabled = EnableLogging;
 		}
 
-		public void AddSkill(string id, string name, Func<SkillObject> getSkillObject)
+		public void AddSkill(string id, string name, Func<SkillObject?> getSkillObject)
 		{
 			try
 			{
@@ -601,7 +601,7 @@ namespace AdjustableLeveling.Settings
 		#endregion
 
 		#region PRIVATE METHODS
-		private SkillUserEnum GetSkillUser(Hero hero)
+		private SkillUserEnum GetSkillUser(Hero? hero)
 		{
 			var output = SkillUserEnum.NPC;
 			if (hero != null)
@@ -619,12 +619,12 @@ namespace AdjustableLeveling.Settings
 			return output;
 		}
 
-		private static bool IsWarSailsSkillId(string id)
+		private static bool IsWarSailsSkillId(string? id)
 		{
 			if (string.IsNullOrWhiteSpace(id))
 				return false;
 
-			return WarSailsSkillIds.Contains(id);
+			return id is not null && WarSailsSkillIds.Contains(id);
 		}
 
 		private static bool IsWarSailsSkill(SkillObject skill)
@@ -635,7 +635,7 @@ namespace AdjustableLeveling.Settings
 			return IsWarSailsSkillId(skill.StringId) || IsWarSailsSkillId(skill.Name?.ToString());
 		}
 
-		private static SkillObject ResolveOptionalSkillObject(string id, string defaultSkillsPropertyName)
+		private static SkillObject? ResolveOptionalSkillObject(string id, string defaultSkillsPropertyName)
 		{
 			try
 			{
@@ -661,7 +661,7 @@ namespace AdjustableLeveling.Settings
 			}
 		}
 
-		private static string ResolveWarSailsSkillId(SkillObject skill)
+		private static string? ResolveWarSailsSkillId(SkillObject? skill)
 		{
 			if (skill == null)
 				return null;
@@ -749,9 +749,10 @@ namespace AdjustableLeveling.Settings
 			var id = ResolveWarSailsSkillId(skill);
 			if (string.IsNullOrWhiteSpace(id))
 				return false;
+			var nonNullId = id!;
 
-			EnsureSkillModifierDefaults(id);
-			RegisterSkillModifierGetter(id, skill, runtimeRegistration: true);
+			EnsureSkillModifierDefaults(nonNullId);
+			RegisterSkillModifierGetter(nonNullId, skill, runtimeRegistration: true);
 			return true;
 		}
 
