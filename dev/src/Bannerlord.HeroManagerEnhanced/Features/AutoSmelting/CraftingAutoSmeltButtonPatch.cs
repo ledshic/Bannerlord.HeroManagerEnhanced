@@ -14,7 +14,7 @@ internal sealed class CraftingAutoSmeltButtonPatch : PrefabExtensionInsertPatch
     public string GetPrefabExtension =>
         "<Widget Id=\"HME_AutoSmeltParent\" WidthSizePolicy=\"Fixed\" HeightSizePolicy=\"Fixed\" SuggestedWidth=\"190\" SuggestedHeight=\"50\" HorizontalAlignment=\"Center\" VerticalAlignment=\"Bottom\" MarginLeft=\"10\" IsVisible=\"@IsInSmeltingMode\">"
       + "<Children>"
-      + "<ButtonWidget Id=\"HME_AutoSmeltButton\" DoNotPassEventsToChildren=\"true\" WidthSizePolicy=\"StretchToParent\" HeightSizePolicy=\"StretchToParent\" Brush=\"Crafting.MainAction.Button\" Command.Click=\"ExecuteAutoSmelt\" IsEnabled=\"@IsAutoSmeltEnabled\" UpdateChildrenStates=\"true\">"
+      + "<ButtonWidget Id=\"HME_AutoSmeltButton\" DoNotPassEventsToChildren=\"true\" WidthSizePolicy=\"StretchToParent\" HeightSizePolicy=\"StretchToParent\" Brush=\"Crafting.MainAction.Button\" Command.Click=\"ExecuteAutoSmelt\" IsEnabled=\"@IsMainActionEnabled\" UpdateChildrenStates=\"true\">"
       + "<Children>"
         + "<TextWidget WidthSizePolicy=\"CoverChildren\" HeightSizePolicy=\"CoverChildren\" HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\" MarginTop=\"15\" Brush=\"Crafting.MainAction.Text\" Text=\"@AutoSmeltButtonText\" />"
       + "</Children>"

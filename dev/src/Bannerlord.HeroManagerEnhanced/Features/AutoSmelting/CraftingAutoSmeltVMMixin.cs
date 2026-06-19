@@ -26,7 +26,7 @@ internal sealed class CraftingAutoSmeltVMMixin : BaseViewModelMixin<CraftingVM>
     public string AutoRefineButtonText => _autoButtonText;
 
     [DataSourceProperty]
-    public bool IsAutoSmeltEnabled => HasSmeltableUnlockedItem();
+    public bool IsAutoSmeltEnabled => ViewModel?.IsInSmeltingMode == true && ViewModel.IsMainActionEnabled;
 
     [DataSourceProperty]
     public bool IsAutoRefineEnabled => ViewModel?.IsInRefinementMode == true && ViewModel.IsMainActionEnabled;
@@ -53,13 +53,7 @@ internal sealed class CraftingAutoSmeltVMMixin : BaseViewModelMixin<CraftingVM>
 
         while (iterations++ < maxIterations)
         {
-            var targetItem = smelting.SmeltableItemList?.FirstOrDefault(static item => !item.IsLocked && item.NumOfItems > 0);
-            if (targetItem is null)
-                break;
-
-            // Select exactly one candidate item and verify the game still allows one more smelt action.
-            targetItem.ExecuteSelection();
-            if (!ViewModel.IsMainActionEnabled)
+            if (!TrySelectExecutableSmeltItem(smelting))
                 break;
 
             var beforeUnlockedCount = GetUnlockedItemCount(smelting);
@@ -72,7 +66,7 @@ internal sealed class CraftingAutoSmeltVMMixin : BaseViewModelMixin<CraftingVM>
             if (!itemProcessed)
                 break;
 
-            // Continue only when this smelt consumed one stamina step; otherwise stop safely.
+            // A valid smelt action should consume stamina once; if not, stop to avoid runaway loops.
             if (staminaBefore >= 0f && staminaAfter >= staminaBefore)
                 break;
         }
@@ -109,12 +103,19 @@ internal sealed class CraftingAutoSmeltVMMixin : BaseViewModelMixin<CraftingVM>
         OnPropertyChangedWithValue(IsAutoRefineEnabled, nameof(IsAutoRefineEnabled));
     }
 
-    private bool HasSmeltableUnlockedItem()
+    private bool TrySelectExecutableSmeltItem(SmeltingVM smelting)
     {
-        if (ViewModel?.Smelting?.SmeltableItemList is not { } list)
+        if (smelting.SmeltableItemList is not { } list)
             return false;
 
-        return list.Any(static item => !item.IsLocked && item.NumOfItems > 0);
+        foreach (var item in list.Where(static candidate => candidate.NumOfItems > 0))
+        {
+            item.ExecuteSelection();
+            if (ViewModel?.IsMainActionEnabled == true)
+                return true;
+        }
+
+        return false;
     }
 
     private static int GetUnlockedItemCount(SmeltingVM smelting)
@@ -130,4 +131,5 @@ internal sealed class CraftingAutoSmeltVMMixin : BaseViewModelMixin<CraftingVM>
     {
         return ViewModel?.CurrentCraftingHero?.CurrentStamina ?? -1f;
     }
+
 }
