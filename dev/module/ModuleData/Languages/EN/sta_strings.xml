@@ -48,6 +48,14 @@
     <string id="GIME_MCM_APPLY_NAME" text="Perks Activation" />
     <string id="GIME_MCM_APPLY_BUTTON" text="Apply" />
     <string id="GIME_MCM_APPLY_HINT" text="Manually apply all available perks to the player now." />
+    <string id="GIME_MCM_SKILL_DELTA_NAME" text="Increase/Decrease Skill Proficiency" />
+    <string id="GIME_MCM_SKILL_DELTA_HINT" text="Value to add to each player skill level (e.g. One Handed)." />
+    <string id="GIME_MCM_SKILL_APPLY_NAME" text="Apply Proficiency Change" />
+    <string id="GIME_MCM_SKILL_APPLY_HINT" text="Apply the slider value to all player skill levels now." />
+    <string id="GIME_SETTINGS_MISSING" text="Perk Concierge: settings are unavailable." />
+    <string id="GIME_SKILL_ZERO" text="Perk Concierge: skill proficiency delta is 0, nothing changed." />
+    <string id="GIME_SKILL_NONE" text="Perk Concierge: no skill definitions were found." />
+    <string id="GIME_SKILL_DONE" text="Perk Concierge: adjusted {COUNT} skills by {DELTA}. Clamped {CLAMPED} skill(s) to valid range." />
 
     <!-- Adjustable Leveling -->
     <string id="adjlvl_mod_name" text="Adjustable Leveling" />

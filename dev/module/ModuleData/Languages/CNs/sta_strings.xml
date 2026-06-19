@@ -48,6 +48,14 @@
     <string id="GIME_MCM_APPLY_NAME" text="天赋激活" />
     <string id="GIME_MCM_APPLY_BUTTON" text="应用" />
     <string id="GIME_MCM_APPLY_HINT" text="立即手动为玩家应用所有可用天赋。" />
+    <string id="GIME_MCM_SKILL_DELTA_NAME" text="增减技能熟练度" />
+    <string id="GIME_MCM_SKILL_DELTA_HINT" text="要应用到玩家每项技能等级（如单手）的增减值。" />
+    <string id="GIME_MCM_SKILL_APPLY_NAME" text="应用熟练度变更" />
+    <string id="GIME_MCM_SKILL_APPLY_HINT" text="将上方滑条数值应用到玩家全部技能等级。" />
+    <string id="GIME_SETTINGS_MISSING" text="天赋管家：设置不可用。" />
+    <string id="GIME_SKILL_ZERO" text="天赋管家：熟练度增减值为 0，未做任何变更。" />
+    <string id="GIME_SKILL_NONE" text="天赋管家：未找到任何技能定义。" />
+    <string id="GIME_SKILL_DONE" text="天赋管家：已对 {COUNT} 项技能应用 {DELTA} 变更，{CLAMPED} 项被限制到有效范围。" />
 
     <!-- Adjustable Leveling -->
     <string id="adjlvl_mod_name" text="可调等级" />

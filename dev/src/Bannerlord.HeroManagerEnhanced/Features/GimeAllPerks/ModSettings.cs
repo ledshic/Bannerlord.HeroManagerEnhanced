@@ -25,4 +25,17 @@ public sealed class ModSettings : AttributeGlobalSettings<ModSettings>
         HintText = "{=GIME_MCM_APPLY_HINT}Manually apply all available perks to the player now.")]
     [SettingPropertyGroup("{=GIME_MCM_ACTIONS}Actions")]
     public Action ApplyPerksButton { get; set; } = PlayerPerksCampaignBehavior.ApplyPerksFromMcm;
+
+    [SettingPropertyInteger("{=GIME_MCM_SKILL_DELTA_NAME}Increase/Decrease Skill Proficiency",
+        -1000,
+        1000,
+        RequireRestart = false,
+        HintText = "{=GIME_MCM_SKILL_DELTA_HINT}Value to add to each player skill level (e.g. One Handed).")]
+    [SettingPropertyGroup("{=GIME_MCM_ACTIONS}Actions")]
+    public int SkillProficiencyDelta { get; set; } = 0;
+
+    [SettingPropertyButton("{=GIME_MCM_SKILL_APPLY_NAME}Apply Proficiency Change", Content = "{=GIME_MCM_APPLY_BUTTON}Apply", RequireRestart = false,
+        HintText = "{=GIME_MCM_SKILL_APPLY_HINT}Apply the slider value to all player skill levels now.")]
+    [SettingPropertyGroup("{=GIME_MCM_ACTIONS}Actions")]
+    public Action ApplySkillProficiencyButton { get; set; } = PlayerPerksCampaignBehavior.ApplySkillProficiencyFromMcm;
 }

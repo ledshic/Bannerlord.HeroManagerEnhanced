@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
@@ -12,6 +13,8 @@ public sealed class PlayerPerksCampaignBehavior : CampaignBehaviorBase
 {
     private readonly HashSet<string> _ignoreEntries;
     private static PlayerPerksCampaignBehavior? _instance;
+    private const int MinSkillValue = 0;
+    private const int MaxSkillValue = 1023;
 
     public PlayerPerksCampaignBehavior(HashSet<string> ignoreEntries)
     {
@@ -38,6 +41,26 @@ public sealed class PlayerPerksCampaignBehavior : CampaignBehaviorBase
         }
 
         _instance.ApplyPerksToMainHero();
+    }
+
+    public static void ApplySkillProficiencyFromMcm()
+    {
+        if (_instance == null)
+        {
+            var notReadyMsg = new TextObject("{=GIME_NOT_READY}Perk Concierge: campaign is not ready yet.");
+            InformationManager.DisplayMessage(new InformationMessage(notReadyMsg.ToString()));
+            return;
+        }
+
+        ModSettings? settings = ModSettings.Instance;
+        if (settings == null)
+        {
+            var noSettingsMsg = new TextObject("{=GIME_SETTINGS_MISSING}Perk Concierge: settings are unavailable.");
+            InformationManager.DisplayMessage(new InformationMessage(noSettingsMsg.ToString()));
+            return;
+        }
+
+        _instance.ApplySkillDeltaToMainHero(settings.SkillProficiencyDelta);
     }
 
     private void OnSessionLaunched(CampaignGameStarter campaignGameStarter)
@@ -100,5 +123,58 @@ public sealed class PlayerPerksCampaignBehavior : CampaignBehaviorBase
             ignoredMsg.SetTextVariable("LIST", ignoredText);
             InformationManager.DisplayMessage(new InformationMessage(ignoredMsg.ToString()));
         }
+    }
+
+    private void ApplySkillDeltaToMainHero(int skillDelta)
+    {
+        Hero? mainHero = Hero.MainHero;
+        if (mainHero == null)
+        {
+            var noHeroMsg = new TextObject("{=GIME_NO_HERO}Perk Concierge: main hero is unavailable in the current context.");
+            InformationManager.DisplayMessage(new InformationMessage(noHeroMsg.ToString()));
+            return;
+        }
+
+        if (skillDelta == 0)
+        {
+            var zeroMsg = new TextObject("{=GIME_SKILL_ZERO}Perk Concierge: skill proficiency delta is 0, nothing changed.");
+            InformationManager.DisplayMessage(new InformationMessage(zeroMsg.ToString()));
+            return;
+        }
+
+        var allSkills = MBObjectManager.Instance?.GetObjectTypeList<SkillObject>();
+        if (allSkills == null || allSkills.Count == 0)
+        {
+            var noSkillsMsg = new TextObject("{=GIME_SKILL_NONE}Perk Concierge: no skill definitions were found.");
+            InformationManager.DisplayMessage(new InformationMessage(noSkillsMsg.ToString()));
+            return;
+        }
+
+        int changedCount = 0;
+        int clampedCount = 0;
+
+        foreach (SkillObject skill in allSkills)
+        {
+            int currentValue = mainHero.GetSkillValue(skill);
+            int targetValue = MBMath.ClampInt(currentValue + skillDelta, MinSkillValue, MaxSkillValue);
+            if (targetValue == currentValue)
+            {
+                continue;
+            }
+
+            if (targetValue != currentValue + skillDelta)
+            {
+                clampedCount++;
+            }
+
+            mainHero.SetSkillValue(skill, targetValue);
+            changedCount++;
+        }
+
+        var resultMsg = new TextObject("{=GIME_SKILL_DONE}Perk Concierge: adjusted {COUNT} skills by {DELTA}. Clamped {CLAMPED} skill(s) to valid range.");
+        resultMsg.SetTextVariable("COUNT", changedCount);
+        resultMsg.SetTextVariable("DELTA", skillDelta);
+        resultMsg.SetTextVariable("CLAMPED", clampedCount);
+        InformationManager.DisplayMessage(new InformationMessage(resultMsg.ToString()));
     }
 }
