@@ -25,6 +25,7 @@ public sealed class PlayerPerksCampaignBehavior : CampaignBehaviorBase
     public override void RegisterEvents()
     {
         CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, OnSessionLaunched);
+        CampaignEvents.HeroGainedSkill.AddNonSerializedListener(this, OnHeroGainedSkill);
     }
 
     public override void SyncData(IDataStore dataStore)
@@ -66,12 +67,28 @@ public sealed class PlayerPerksCampaignBehavior : CampaignBehaviorBase
     private void OnSessionLaunched(CampaignGameStarter campaignGameStarter)
     {
         ModSettings? settings = ModSettings.Instance;
-        if (settings == null || !settings.AutoApplyOnLoad)
+        if (settings == null || !settings.AutoApplyOnLoad || settings.ProgressiveUnlockOnSkillLevelUp)
         {
             return;
         }
 
         ApplyPerksToMainHero();
+    }
+
+    private void OnHeroGainedSkill(Hero hero, SkillObject skill, int change = 1, bool shouldNotify = true)
+    {
+        ModSettings? settings = ModSettings.Instance;
+        if (settings == null || !settings.ProgressiveUnlockOnSkillLevelUp || settings.AutoApplyOnLoad)
+        {
+            return;
+        }
+
+        if (change <= 0 || hero != Hero.MainHero || hero.HeroDeveloper == null || skill == null)
+        {
+            return;
+        }
+
+        ApplyEligiblePerksForSkill(hero, skill);
     }
 
     private void ApplyPerksToMainHero()
@@ -176,5 +193,42 @@ public sealed class PlayerPerksCampaignBehavior : CampaignBehaviorBase
         resultMsg.SetTextVariable("DELTA", skillDelta);
         resultMsg.SetTextVariable("CLAMPED", clampedCount);
         InformationManager.DisplayMessage(new InformationMessage(resultMsg.ToString()));
+    }
+
+    private void ApplyEligiblePerksForSkill(Hero hero, SkillObject skill)
+    {
+        int currentSkillValue = hero.GetSkillValue(skill);
+        int addedCount = 0;
+
+        foreach (PerkObject perk in PerkObject.All)
+        {
+            if (perk.Skill != skill)
+            {
+                continue;
+            }
+
+            if (PerkIgnoreConfig.IsIgnored(perk, _ignoreEntries) || hero.GetPerkValue(perk))
+            {
+                continue;
+            }
+
+            if (currentSkillValue < perk.RequiredSkillValue)
+            {
+                continue;
+            }
+
+            hero.HeroDeveloper.AddPerk(perk);
+            addedCount++;
+        }
+
+        if (addedCount <= 0)
+        {
+            return;
+        }
+
+        var progressiveMsg = new TextObject("{=GIME_PROGRESSIVE_ADDED}Perk Concierge: unlocked {COUNT} perk(s) for {SKILL}.");
+        progressiveMsg.SetTextVariable("COUNT", addedCount);
+        progressiveMsg.SetTextVariable("SKILL", skill.Name);
+        InformationManager.DisplayMessage(new InformationMessage(progressiveMsg.ToString()));
     }
 }

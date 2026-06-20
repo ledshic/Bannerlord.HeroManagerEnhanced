@@ -7,8 +7,16 @@
   <strings>
     <!-- Hero Manager Enhanced -->
     <string id="HME_INIT_FAIL" text="Hero Manager Enhanced failed to initialize. Check logs." />
-    <string id="HME_LOADED" text="Hero Manager Enhanced loaded (Ammo Pickup, Perk Concierge, Adjustable Leveling)." />
+    <string id="HME_LOADED" text="Hero Manager Enhanced loaded (Ammo Pickup, Perk Concierge, Adjustable Leveling, Personal Enhancement)." />
     <string id="HME_AUTO_BUTTON" text="Auto" />
+
+    <!-- Personal Enhancement -->
+    <string id="PE_MCM_MOD_NAME" text="Personal Enhancement" />
+    <string id="PE_MCM_GROUP_COMBAT" text="Combat" />
+    <string id="PE_MCM_LIFESTEAL_NAME" text="Life steal from dealt damage" />
+    <string id="PE_MCM_LIFESTEAL_HINT" text="When enabled, 15% of damage dealt in battle is restored as your own health." />
+    <string id="PE_MCM_REGEN_NAME" text="Regenerate 1% health per second" />
+    <string id="PE_MCM_REGEN_HINT" text="When enabled, recover 1% of maximum health every second while in battle and not at full health." />
 
     <!-- Auto Ammo Pickup -->
     <string id="AAM_SettingsTitle" text="Auto Ammo Pickup {VERSION}" />
@@ -45,6 +53,8 @@
     <string id="GIME_MCM_ACTIONS" text="Actions" />
     <string id="GIME_MCM_AUTO_NAME" text="Auto" />
     <string id="GIME_MCM_AUTO_HINT" text="Automatically apply perks once after a campaign is loaded." />
+    <string id="GIME_MCM_PROGRESSIVE_NAME" text="Progressive" />
+    <string id="GIME_MCM_PROGRESSIVE_HINT" text="When checked, newly eligible perks are automatically unlocked whenever the player gains skill levels. Incompatible with Auto mode." />
     <string id="GIME_MCM_APPLY_NAME" text="Perks Activation" />
     <string id="GIME_MCM_APPLY_BUTTON" text="Apply" />
     <string id="GIME_MCM_APPLY_HINT" text="Manually apply all available perks to the player now." />
@@ -56,6 +66,7 @@
     <string id="GIME_SKILL_ZERO" text="Perk Concierge: skill proficiency delta is 0, nothing changed." />
     <string id="GIME_SKILL_NONE" text="Perk Concierge: no skill definitions were found." />
     <string id="GIME_SKILL_DONE" text="Perk Concierge: adjusted {COUNT} skills by {DELTA}. Clamped {CLAMPED} skill(s) to valid range." />
+    <string id="GIME_PROGRESSIVE_ADDED" text="Perk Concierge: unlocked {COUNT} perk(s) for {SKILL}." />
 
     <!-- Adjustable Leveling -->
     <string id="adjlvl_mod_name" text="Adjustable Leveling" />

@@ -7,6 +7,7 @@ using TaleWorlds.Engine;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
+using Bannerlord.HeroManagerEnhanced.Features.Shared;
 
 namespace Bannerlord.AutoAmmoPickup
 {
@@ -20,6 +21,12 @@ namespace Bannerlord.AutoAmmoPickup
     /// </summary>
     public class AutoAmmoPickupMissionBehavior : MissionLogic
     {
+        private static readonly ItemObject.ItemTypeEnum? SlingType = TryParseItemType("Sling");
+        private static readonly ItemObject.ItemTypeEnum? SlingStonesType = TryParseItemType("SlingStones");
+        private static readonly ItemObject.ItemTypeEnum? PistolType = TryParseItemType("Pistol");
+        private static readonly ItemObject.ItemTypeEnum? MusketType = TryParseItemType("Musket");
+        private static readonly ItemObject.ItemTypeEnum? BulletsType = TryParseItemType("Bullets");
+
         #region Internal Timing / Physics (not exposed in MCM for simplicity, but easy to promote later)
 
         private const float MaxPickupHeight = 2.2f;
@@ -128,33 +135,14 @@ namespace Bannerlord.AutoAmmoPickup
         /// </summary>
         private bool ShouldRunInCurrentMission()
         {
-            Mission mission = Mission.Current;
-            if (mission == null)
-                return false;
-
-            // Broad but practical filter for "battle or arena" scenarios
-            if (mission.IsFieldBattle ||
-                mission.IsSiegeBattle ||
-                mission.IsSallyOutBattle)
-            {
-                return true;
-            }
-
-            // MissionMode catches Custom Battle, Duel, and many arena/practice fights
-            if (mission.Mode == MissionMode.Battle ||
-                mission.Mode == MissionMode.Duel)
-            {
-                return true;
-            }
-
-            // As a last resort, if the player has an active combat agent we allow it
-            // (covers some training fields / special missions).
-            return Agent.Main != null && Agent.Main.IsActive();
+            return MissionCombatScope.CanRunInCombatMission(Mission.Current);
         }
 
         /// <summary>
         /// Populates refill filters from existing equipped ammo stacks that are not full.
-        /// We track both WeaponClass and ItemType so different ammo subtypes can still refill each other.
+        /// We track both WeaponClass and ItemType.
+        /// - Arrows/Bolts (and compatible ranged ammo families when present) may refill by broad ItemType.
+        /// - Thrown/sling-style ammo must match WeaponClass subtype to avoid replacement loops (e.g. stone <-> javelin).
         /// No mode is allowed to pick up new ammo/weapons into empty slots or by replacing current loadout.
         /// </summary>
         private bool TryGetDesiredAmmoClasses(
@@ -192,7 +180,7 @@ namespace Bannerlord.AutoAmmoPickup
                             allowedRefillClasses.Add(mw.CurrentUsageItem.WeaponClass);
                         }
 
-                        if (IsRefillAmmoItemType(item.Type))
+                        if (IsTypeMergeAmmoItemType(item.Type))
                         {
                             allowedRefillItemTypes.Add(item.Type);
                         }
@@ -292,9 +280,14 @@ namespace Bannerlord.AutoAmmoPickup
                     ItemObject.ItemTypeEnum itemType = w.Item != null ? w.Item.Type : ItemObject.ItemTypeEnum.Invalid;
 
                     // Refill-only policy: never pick up items that would create a new stack or replace loadout.
+                    // Thrown ammo is stricter and requires WeaponClass subtype match.
                     bool canRefillByClass = allowedRefillClasses.Contains(ammoClass);
                     bool canRefillByType = allowedRefillItemTypes.Contains(itemType);
-                    if (!canRefillByClass && !canRefillByType)
+                    bool canRefill = RequiresStrictClassMatch(itemType)
+                        ? canRefillByClass
+                        : (canRefillByClass || canRefillByType);
+
+                    if (!canRefill)
                         continue;
 
                     if (horizDistSq < bestDistSq)
@@ -308,11 +301,40 @@ namespace Bannerlord.AutoAmmoPickup
             return best;
         }
 
-        private static bool IsRefillAmmoItemType(ItemObject.ItemTypeEnum itemType)
+        private static bool IsTypeMergeAmmoItemType(ItemObject.ItemTypeEnum itemType)
         {
-            return itemType == ItemObject.ItemTypeEnum.Arrows ||
-                   itemType == ItemObject.ItemTypeEnum.Bolts ||
-                   itemType == ItemObject.ItemTypeEnum.Thrown;
+            if (itemType == ItemObject.ItemTypeEnum.Arrows ||
+                itemType == ItemObject.ItemTypeEnum.Bolts)
+            {
+                return true;
+            }
+
+            if (SlingStonesType.HasValue && itemType == SlingStonesType.Value)
+            {
+                return true;
+            }
+
+            if (BulletsType.HasValue && itemType == BulletsType.Value)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool RequiresStrictClassMatch(ItemObject.ItemTypeEnum itemType)
+        {
+            if (itemType == ItemObject.ItemTypeEnum.Thrown)
+            {
+                return true;
+            }
+
+            if (SlingStonesType.HasValue && itemType == SlingStonesType.Value)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private static bool TryGetWieldedAmmoItemType(MissionWeapon wielded, out ItemObject.ItemTypeEnum ammoType)
@@ -340,7 +362,35 @@ namespace Bannerlord.AutoAmmoPickup
                 return true;
             }
 
+            if (SlingType.HasValue && SlingStonesType.HasValue && wielded.Item.Type == SlingType.Value)
+            {
+                ammoType = SlingStonesType.Value;
+                return true;
+            }
+
+            if (BulletsType.HasValue)
+            {
+                if (PistolType.HasValue && wielded.Item.Type == PistolType.Value)
+                {
+                    ammoType = BulletsType.Value;
+                    return true;
+                }
+
+                if (MusketType.HasValue && wielded.Item.Type == MusketType.Value)
+                {
+                    ammoType = BulletsType.Value;
+                    return true;
+                }
+            }
+
             return false;
+        }
+
+        private static ItemObject.ItemTypeEnum? TryParseItemType(string name)
+        {
+            return Enum.TryParse(name, out ItemObject.ItemTypeEnum parsed)
+                ? parsed
+                : (ItemObject.ItemTypeEnum?)null;
         }
 
         /// <summary>

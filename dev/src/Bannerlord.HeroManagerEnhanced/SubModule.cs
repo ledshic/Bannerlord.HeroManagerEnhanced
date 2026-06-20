@@ -3,6 +3,7 @@ using System.Reflection;
 using AdjustableLeveling.General;
 using Bannerlord.AutoAmmoPickup;
 using Bannerlord.GimeAllPerks;
+using Bannerlord.PersonalEnhancement;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem;
@@ -70,7 +71,7 @@ public sealed class SubModule : MBSubModuleBase
 
         AdjustableLevelingBootstrap.OnBeforeInitialModuleScreenSetAsRoot();
 
-        var loadedMsg = new TextObject("{=HME_LOADED}Hero Manager Enhanced loaded (Ammo Pickup, Perk Concierge, Adjustable Leveling).");
+        var loadedMsg = new TextObject("{=HME_LOADED}Hero Manager Enhanced loaded (Ammo Pickup, Perk Concierge, Adjustable Leveling, Personal Enhancement).");
         InformationManager.DisplayMessage(new InformationMessage(loadedMsg.ToString(), Colors.Cyan));
     }
 
@@ -94,6 +95,7 @@ public sealed class SubModule : MBSubModuleBase
             return;
 
         mission.AddMissionBehavior(new AutoAmmoPickupMissionBehavior());
+        mission.AddMissionBehavior(new CombatEnhancementMissionBehavior());
     }
 
     public override void OnNewGameCreated(Game game, object initializerObject)

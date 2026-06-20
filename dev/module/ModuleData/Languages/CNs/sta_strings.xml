@@ -7,8 +7,16 @@
   <strings>
     <!-- Hero Manager Enhanced -->
     <string id="HME_INIT_FAIL" text="英雄管理增强初始化失败，请检查日志。" />
-    <string id="HME_LOADED" text="英雄管理增强已加载（自动弹药拾取、天赋管家、可调等级）。" />
+    <string id="HME_LOADED" text="英雄管理增强已加载（自动弹药拾取、天赋管家、可调等级、个人强化）。" />
     <string id="HME_AUTO_BUTTON" text="自动" />
+
+    <!-- Personal Enhancement -->
+    <string id="PE_MCM_MOD_NAME" text="个人强化" />
+    <string id="PE_MCM_GROUP_COMBAT" text="战斗" />
+    <string id="PE_MCM_LIFESTEAL_NAME" text="伤害吸血" />
+    <string id="PE_MCM_LIFESTEAL_HINT" text="开启后，在战场中造成伤害的 15% 会恢复为自身生命值。" />
+    <string id="PE_MCM_REGEN_NAME" text="每秒回复 1% 生命" />
+    <string id="PE_MCM_REGEN_HINT" text="开启后，在战场中生命未满时每秒回复最大生命值的 1%。" />
 
     <!-- Auto Ammo Pickup -->
     <string id="AAM_SettingsTitle" text="自动弹药拾取 {VERSION}" />
@@ -45,6 +53,8 @@
     <string id="GIME_MCM_ACTIONS" text="操作" />
     <string id="GIME_MCM_AUTO_NAME" text="自动" />
     <string id="GIME_MCM_AUTO_HINT" text="在战役载入后自动应用一次天赋。" />
+    <string id="GIME_MCM_PROGRESSIVE_NAME" text="渐进" />
+    <string id="GIME_MCM_PROGRESSIVE_HINT" text="勾选后，每次玩家技能升级都会自动解锁该技能下已达到等级要求的天赋。与“自动”模式互斥。" />
     <string id="GIME_MCM_APPLY_NAME" text="天赋激活" />
     <string id="GIME_MCM_APPLY_BUTTON" text="应用" />
     <string id="GIME_MCM_APPLY_HINT" text="立即手动为玩家应用所有可用天赋。" />
@@ -56,6 +66,7 @@
     <string id="GIME_SKILL_ZERO" text="天赋管家：熟练度增减值为 0，未做任何变更。" />
     <string id="GIME_SKILL_NONE" text="天赋管家：未找到任何技能定义。" />
     <string id="GIME_SKILL_DONE" text="天赋管家：已对 {COUNT} 项技能应用 {DELTA} 变更，{CLAMPED} 项被限制到有效范围。" />
+    <string id="GIME_PROGRESSIVE_ADDED" text="天赋管家：已为 {SKILL} 解锁 {COUNT} 个天赋。" />
 
     <!-- Adjustable Leveling -->
     <string id="adjlvl_mod_name" text="可调等级" />
