@@ -477,6 +477,9 @@ namespace AdjustableLeveling.Settings
 		public void OnGameEnd()
 		{
 			SkillModifierGetters.Clear();
+			WarnMissingSkillGetterOnceList.Clear();
+			WarnMissingSkillModifierOnceList.Clear();
+			WarSailsSkillRuntimeSeenHashCodes.Clear();
 
 			PerCampaignSettings.Unregister();
 			GlobalSettings.Register();

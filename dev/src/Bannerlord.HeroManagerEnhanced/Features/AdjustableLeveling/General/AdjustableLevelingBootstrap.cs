@@ -125,6 +125,9 @@ public static class AdjustableLevelingBootstrap
             {
                 settings.OnGameEnd();
             }
+
+            _characterDevelopmentModel = null;
+            DebugTraceUtility.Clear();
         }
         catch (Exception exc)
         {

@@ -113,6 +113,7 @@ public sealed class SubModule : MBSubModuleBase
     public override void OnGameEnd(Game game)
     {
         base.OnGameEnd(game);
+        PlayerPerksCampaignBehavior.ClearCachedInstance();
         AdjustableLevelingBootstrap.OnGameEnd(game);
     }
 }

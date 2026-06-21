@@ -115,6 +115,16 @@ namespace AdjustableLeveling.Utility
       return (totalBytes, fileCount);
     }
 
+    public static void Clear()
+    {
+      lock (_lock)
+      {
+        _lastLogByKey.Clear();
+        _loggedOnceKeys.Clear();
+        _lastMessageDisplayUtc = DateTime.MinValue;
+      }
+    }
+
     private static bool IsEnabled()
     {
       try

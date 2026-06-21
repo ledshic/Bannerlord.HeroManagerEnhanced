@@ -32,6 +32,11 @@ public sealed class PlayerPerksCampaignBehavior : CampaignBehaviorBase
     {
     }
 
+    public static void ClearCachedInstance()
+    {
+        _instance = null;
+    }
+
     public static void ApplyPerksFromMcm()
     {
         if (_instance == null)
